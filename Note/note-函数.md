@@ -757,7 +757,8 @@ func doSomething() error {
 defer 是 Go 语言提供的一种延迟调用机制，defer 的运作离不开函数。怎么理解呢？这句话至少有以下两点含义：
 	* 在 Go 中，只有在函数（和方法）内部才能使用 defer；
 	* defer 关键字后面只能接函数（或方法），这些函数被称为 deferred 函数。defer 将它们注册到其所在 Goroutine 中，用于存放 deferred 函数的栈数据结构中，这些 deferred 函数将在执行 defer 的函数退出前，按后进先出（LIFO）的顺序被程序调度执行（如下图所示）。
-	![[Pasted image 20220405105106.png]]
+
+![20220405105106.png](./image/Pasted%20image%2020220405105106.png)
 
 而且，无论是执行到函数体尾部返回，还是在某个错误处理分支显式 return，又或是出现 panic，已经存储到 deferred 函数栈中的函数，都会被调度执行。所以说，deferred 函数是一个可以在任何情况下为函数进行收尾工作的好“伙伴”。
 
